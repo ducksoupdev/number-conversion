@@ -1,0 +1,16 @@
+{
+  "name": "word-conversion",
+  "version": "1.0.0",
+  "description": "Word conversion - convert numbers to English words",
+  "main": "index.js",
+  "scripts": {
+    "test": "http-server -o"
+  },
+  "author": "levym <ducksoupdev@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "http-server": "^0.9.0",
+    "jasmine": "^2.4.1"
+  },
+  "devDependencies": {}
+}
