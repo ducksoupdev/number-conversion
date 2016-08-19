@@ -4,7 +4,7 @@ function WordConversion() {
 }
 
 function _convertNumber(num) {
-    var singleDigitWords = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+    var singleDigitWords = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty"];
     return singleDigitWords[num];
 }
 
