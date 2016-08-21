@@ -155,4 +155,38 @@ describe("Word conversion", function () {
             }
         }
     });
+
+    describe("converting tens of thousands", function () {
+        var expected = {
+            20000: "twenty thousand",
+            21121: "twenty one thousand one hundred and twenty one",
+            21125: "twenty one thousand one hundred and twenty five",
+            31129: "thirty one thousand one hundred and twenty nine",
+            32200: "thirty two thousand two hundred",
+            31230: "thirty one thousand two hundred and thirty",
+            42333: "fourty two thousand three hundred and thirty three",
+            41438: "fourty one thousand four hundred and thirty eight",
+            54544: "fifty four thousand five hundred and fourty four",
+            65547: "sixty five thousand five hundred and fourty seven",
+            66000: "sixty six thousand",
+            65662: "sixty five thousand six hundred and sixty two",
+            78850: "seventy eight thousand eight hundred and fifty",
+            77877: "seventy seven thousand eight hundred and seventy seven",
+            87780: "eighty seven thousand seven hundred and eighty",
+            88900: "eighty eight thousand nine hundred",
+            99999: "ninety nine thousand nine hundred and ninety nine"
+        };
+
+        function assertConversion(num) {
+            it("should convert " + num + " to " + expected[num], function () {
+                expect(wordConversion.convert(num)).toEqual(expected[num]);
+            });
+        }
+
+        for (var num in expected) {
+            if (expected.hasOwnProperty(num)) {
+                assertConversion(num);
+            }
+        }
+    });
 });

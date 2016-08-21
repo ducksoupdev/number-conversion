@@ -53,12 +53,18 @@ var WordConversion = (function () {
     function formatThousands(num) {
         var nearThousand = nearestThousand(num);
         var thousand = firstDigit(nearThousand);
+        var str = singleDigitWords[thousand];
 
         if (nearThousand >= 10000) {
             thousand = firstTwoDigits(nearThousand);
+            if (thousand > 20) {
+                str = formatTens(thousand);
+            } else {
+                str = singleDigitWords[thousand];
+            }
         }
 
-        var str = singleDigitWords[thousand] + " thousand";
+        str += " thousand";
 
         if (nearThousand !== num) {
             var hundred = num - nearThousand;
