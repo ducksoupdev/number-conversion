@@ -1,21 +1,64 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Word conversion</title>
+        <style type="text/css">
+            body { font-family: sans-serif; text-align: center; color: #333; }
+            .panel { padding: 20px 30px; border-radius: 10px; max-width: 60%; margin: 0 auto; background: #e8e8e8; border: 1px solid #ccc; }
+            .hide { display: none; }
+            label { display: block; }
+            input { font-size: 2em; width: 80%; text-align: center; margin: 15px auto; border: 1px solid #ccc; padding: 4px 8px; }
+            .alert { width: 80%; font-size: 1.3em; margin: 0 auto; padding: 12px 18px; border-width: 1px; border-style: solid; }
+            .alert-danger { border-color: rgba(255,0,0, 0.4); background-color: rgba(255,0,0, 0.1); }
+            .alert-info { border-color: rgba(0,0,255, 0.4); background-color: rgba(0,0,255, 0.1); }
+            .test { margin-top: 100px; }
+        </style>
+    </head>
+    <body>
+        <h1 class="text-center">Word conversion</h1>
+        <div class="panel">
+            <form>
+                <label for="number-to-convert">Enter a number to convert to English words</label>
+                <input id="number-to-convert" type="number" class="form-control">
+            </form>
+            <div id="words" class="alert alert-info hide"></div>
+            <div id="error" class="alert alert-danger hide">You have entered invalid input</div>
+        </div>
+        <p class="test"><a href="test.html">[Test suite]</a></p>
 
-<head>
-    <meta charset="utf-8">
-    <title>Jasmine Spec Runner v2.4.1</title>
+        <script src="src/WordConversion.js"></script>
+        <script>
+            var wordConverter = new WordConversion();
 
-    <link rel="stylesheet" href="node_modules/jasmine-core/lib/jasmine-core/jasmine.css">
+            document.addEventListener("DOMContentLoaded", function() {
+                var wordsElement = document.getElementById("words");
+                var errorElement = document.getElementById("error");
+                var inputElement = document.getElementById("number-to-convert");
+                
+                inputElement.addEventListener("keyup", function(event) {
+                    var val = event.target.value;
+                    
+                    if (val == null || val === "") {
+                        wordsElement.classList.add("hide");
+                        errorElement.classList.add("hide");
+                        return;
+                    }
 
-    <script src="node_modules/jasmine-core/lib/jasmine-core/jasmine.js"></script>
-    <script src="node_modules/jasmine-core/lib/jasmine-core/jasmine-html.js"></script>
-    <script src="node_modules/jasmine-core/lib/jasmine-core/boot.js"></script>
+                    if (/^[0-9]+$/.test(val) && val.length <= 6) {
+                        wordsElement.innerHTML = wordConverter.convert(parseInt(val, 10));
+                        wordsElement.classList.remove("hide");
+                        errorElement.classList.add("hide");
+                    } else {
+                        wordsElement.classList.add("hide");
+                        errorElement.classList.remove("hide");
+                    }
+                });
 
-    <script src="src/WordConversion.js"></script>
-    <script src="src/WordConversionSpec.js"></script>
-</head>
-
-<body>
-</body>
-
+                inputElement.focus();
+            });
+        </script>
+    </body>
 </html>

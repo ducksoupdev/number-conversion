@@ -8,4 +8,4 @@ Convert numbers to English words.
 
 ## Run
 
-    $ npm test
+    $ npm start

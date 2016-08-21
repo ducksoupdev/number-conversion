@@ -4,7 +4,8 @@
   "description": "Word conversion - convert numbers to English words",
   "main": "index.js",
   "scripts": {
-    "test": "http-server -o"
+    "test": "http-server -o",
+    "start": "http-server -o"
   },
   "author": "levym <ducksoupdev@gmail.com>",
   "license": "ISC",
