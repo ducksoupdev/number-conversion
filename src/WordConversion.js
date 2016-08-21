@@ -55,20 +55,34 @@ var WordConversion = (function () {
         var thousand = firstDigit(nearThousand);
         var str = singleDigitWords[thousand];
 
-        if (nearThousand >= 10000) {
+        if (nearThousand >= 10000 && nearThousand < 100000) {
             thousand = firstTwoDigits(nearThousand);
+
             if (thousand > 20) {
                 str = formatTens(thousand);
             } else {
                 str = singleDigitWords[thousand];
             }
+        } else if (nearThousand >= 100000) {
+            thousand = firstThreeDigits(nearThousand);
+            str = formatHundreds(thousand);
         }
 
         str += " thousand";
 
         if (nearThousand !== num) {
-            var hundred = num - nearThousand;
-            str += " " + formatHundreds(hundred);
+            var remainder = num - nearThousand;
+            var remainderStr = "";
+
+            if (remainder <= 20) {
+                remainderStr = "and " + singleDigitWords[remainder];
+            } else if (remainder >= 21 && remainder <= 99) {
+                remainderStr = "and " + formatTens(remainder);
+            } else if (remainder >= 100 && remainder <= 999) {
+                remainderStr = formatHundreds(remainder);
+            } 
+
+            str += " " + remainderStr;
         }
 
         return str;
@@ -92,6 +106,10 @@ var WordConversion = (function () {
 
     function firstTwoDigits(num) {
         return parseInt(num.toString().split("").slice(0, 2).join(""), 10);
+    }
+
+    function firstThreeDigits(num) {
+        return parseInt(num.toString().split("").slice(0, 3).join(""), 10);
     }
 
     WordConversion.prototype.convert = function (num) {

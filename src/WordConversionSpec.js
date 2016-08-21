@@ -39,7 +39,7 @@ describe("Word conversion", function () {
         };
 
         function assertConversion(num) {
-            it("should convert " + num + " to " + expected[num], function () {
+            it(num + " to " + expected[num], function () {
                 expect(wordConversion.convert(num)).toEqual(expected[num]);
             });
         }
@@ -69,7 +69,7 @@ describe("Word conversion", function () {
         };
 
         function assertConversion(num) {
-            it("should convert " + num + " to " + expected[num], function () {
+            it(num + " to " + expected[num], function () {
                 expect(wordConversion.convert(num)).toEqual(expected[num]);
             });
         }
@@ -102,7 +102,7 @@ describe("Word conversion", function () {
         };
 
         function assertConversion(num) {
-            it("should convert " + num + " to " + expected[num], function () {
+            it(num + " to " + expected[num], function () {
                 expect(wordConversion.convert(num)).toEqual(expected[num]);
             });
         }
@@ -144,7 +144,7 @@ describe("Word conversion", function () {
         };
 
         function assertConversion(num) {
-            it("should convert " + num + " to " + expected[num], function () {
+            it(num + " to " + expected[num], function () {
                 expect(wordConversion.convert(num)).toEqual(expected[num]);
             });
         }
@@ -178,7 +178,50 @@ describe("Word conversion", function () {
         };
 
         function assertConversion(num) {
-            it("should convert " + num + " to " + expected[num], function () {
+            it(num + " to " + expected[num], function () {
+                expect(wordConversion.convert(num)).toEqual(expected[num]);
+            });
+        }
+
+        for (var num in expected) {
+            if (expected.hasOwnProperty(num)) {
+                assertConversion(num);
+            }
+        }
+    });
+    
+    describe("converting hundreds of thousands", function () {
+        var expected = {
+            100000: "one hundred thousand",
+            121121: "one hundred and twenty one thousand one hundred and twenty one",
+            100001: "one hundred thousand and one",
+            221125: "two hundred and twenty one thousand one hundred and twenty five",
+            231129: "two hundred and thirty one thousand one hundred and twenty nine",
+            200009: "two hundred thousand and nine",
+            332200: "three hundred and thirty two thousand two hundred",
+            331230: "three hundred and thirty one thousand two hundred and thirty",
+            442333: "four hundred and fourty two thousand three hundred and thirty three",
+            441438: "four hundred and fourty one thousand four hundred and thirty eight",
+            400038: "four hundred thousand and thirty eight",
+            554544: "five hundred and fifty four thousand five hundred and fourty four",
+            565547: "five hundred and sixty five thousand five hundred and fourty seven",
+            666000: "six hundred and sixty six thousand",
+            600000: "six hundred thousand",
+            765662: "seven hundred and sixty five thousand six hundred and sixty two",
+            878850: "eight hundred and seventy eight thousand eight hundred and fifty",
+            870002: "eight hundred and seventy thousand and two",
+            800002: "eight hundred thousand and two",
+            800050: "eight hundred thousand and fifty",
+            877877: "eight hundred and seventy seven thousand eight hundred and seventy seven",
+            887780: "eight hundred and eighty seven thousand seven hundred and eighty",
+            887055: "eight hundred and eighty seven thousand and fifty five",
+            988900: "nine hundred and eighty eight thousand nine hundred",
+            900000: "nine hundred thousand",
+            999999: "nine hundred and ninety nine thousand nine hundred and ninety nine"
+        };
+
+        function assertConversion(num) {
+            it(num + " to " + expected[num], function () {
                 expect(wordConversion.convert(num)).toEqual(expected[num]);
             });
         }
