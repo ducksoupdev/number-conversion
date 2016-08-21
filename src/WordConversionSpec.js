@@ -113,4 +113,46 @@ describe("Word conversion", function () {
             }
         }
     });
+    
+    describe("converting thousands", function () {
+        var expected = {
+            1000: "one thousand",
+            1121: "one thousand one hundred and twenty one",
+            1125: "one thousand one hundred and twenty five",
+            1129: "one thousand one hundred and twenty nine",
+            2200: "two thousand two hundred",
+            1230: "one thousand two hundred and thirty",
+            2333: "two thousand three hundred and thirty three",
+            1438: "one thousand four hundred and thirty eight",
+            4544: "four thousand five hundred and fourty four",
+            5547: "five thousand five hundred and fourty seven",
+            6000: "six thousand",
+            5662: "five thousand six hundred and sixty two",
+            8850: "eight thousand eight hundred and fifty",
+            7877: "seven thousand eight hundred and seventy seven",
+            7780: "seven thousand seven hundred and eighty",
+            8900: "eight thousand nine hundred",
+            9999: "nine thousand nine hundred and ninety nine",
+            10000: "ten thousand",
+            11999: "eleven thousand nine hundred and ninety nine",
+            13780: "thirteen thousand seven hundred and eighty",
+            15850: "fifteen thousand eight hundred and fifty",
+            17662: "seventeen thousand six hundred and sixty two",
+            18200: "eighteen thousand two hundred",
+            19000: "nineteen thousand",
+            19999: "nineteen thousand nine hundred and ninety nine"
+        };
+
+        function assertConversion(num) {
+            it("should convert " + num + " to " + expected[num], function () {
+                expect(wordConversion.convert(num)).toEqual(expected[num]);
+            });
+        }
+
+        for (var num in expected) {
+            if (expected.hasOwnProperty(num)) {
+                assertConversion(num);
+            }
+        }
+    });
 });
