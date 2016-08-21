@@ -12,7 +12,11 @@ var WordConversion = (function () {
         var str = null;
         if (num == null) return str;
         if (typeof num === "string") num = parseInt(num, 10);
+        return format(num);
+    }
 
+    function format(num) {
+        var str = null;
         if (num <= 20) {
             str = singleDigitWords[num];
         } else if (num >= 21 && num <= 99) {
@@ -27,8 +31,8 @@ var WordConversion = (function () {
     }
 
     function formatTens(num) {
-        var ten = nearestTen(num);
-        var str = tenWords[firstDigit(ten)];
+        var ten = nearest(num, 10);
+        var str = tenWords[first(ten, 1)];
 
         if (ten !== num) {
             var unit = num - ten;
@@ -39,8 +43,8 @@ var WordConversion = (function () {
     }
 
     function formatHundreds(num) {
-        var hundred = nearestHundred(num);
-        var str = singleDigitWords[firstDigit(hundred)] + " hundred";
+        var hundred = nearest(num, 100);
+        var str = singleDigitWords[first(hundred, 1)] + " hundred";
 
         if (hundred !== num) {
             var ten = num - hundred;
@@ -51,12 +55,12 @@ var WordConversion = (function () {
     }
 
     function formatThousands(num) {
-        var nearThousand = nearestThousand(num);
-        var thousand = firstDigit(nearThousand);
+        var nearThousand = nearest(num, 1000);
+        var thousand = first(nearThousand, 1);
         var str = singleDigitWords[thousand];
 
         if (nearThousand >= 10000 && nearThousand < 100000) {
-            thousand = firstTwoDigits(nearThousand);
+            thousand = first(nearThousand, 2);
 
             if (thousand > 20) {
                 str = formatTens(thousand);
@@ -64,7 +68,7 @@ var WordConversion = (function () {
                 str = singleDigitWords[thousand];
             }
         } else if (nearThousand >= 100000) {
-            thousand = firstThreeDigits(nearThousand);
+            thousand = first(nearThousand, 3);
             str = formatHundreds(thousand);
         }
 
@@ -73,43 +77,19 @@ var WordConversion = (function () {
         if (nearThousand !== num) {
             var remainder = num - nearThousand;
             var remainderStr = "";
-
-            if (remainder <= 20) {
-                remainderStr = "and " + singleDigitWords[remainder];
-            } else if (remainder >= 21 && remainder <= 99) {
-                remainderStr = "and " + formatTens(remainder);
-            } else if (remainder >= 100 && remainder <= 999) {
-                remainderStr = formatHundreds(remainder);
-            } 
-
-            str += " " + remainderStr;
+            if (remainder <= 99) remainderStr = "and ";
+            str += " " + remainderStr + format(remainder);
         }
 
         return str;
     }
 
-    function nearestTen(num) {
-        return Math.floor(num / 10) * 10;
+    function nearest(num, unit) {
+        return Math.floor(num / unit) * unit;
     }
 
-    function nearestHundred(num) {
-        return Math.floor(num / 100) * 100;
-    }
-
-    function nearestThousand(num) {
-        return Math.floor(num / 1000) * 1000;
-    }
-
-    function firstDigit(num) {
-        return parseInt(num.toString().split("")[0], 10);
-    }
-
-    function firstTwoDigits(num) {
-        return parseInt(num.toString().split("").slice(0, 2).join(""), 10);
-    }
-
-    function firstThreeDigits(num) {
-        return parseInt(num.toString().split("").slice(0, 3).join(""), 10);
+    function first(num, digits) {
+        return parseInt(num.toString().split("").slice(0, digits).join(""), 10);
     }
 
     WordConversion.prototype.convert = function (num) {
