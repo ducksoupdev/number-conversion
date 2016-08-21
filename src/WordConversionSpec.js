@@ -80,4 +80,37 @@ describe("Word conversion", function () {
             }
         }
     });
+
+    describe("converting hundreds", function () {
+        var expected = {
+            121: "one hundred and twenty one",
+            125: "one hundred and twenty five",
+            129: "one hundred and twenty nine",
+            200: "two hundred",
+            230: "two hundred and thirty",
+            333: "three hundred and thirty three",
+            438: "four hundred and thirty eight",
+            544: "five hundred and fourty four",
+            547: "five hundred and fourty seven",
+            600: "six hundred",
+            662: "six hundred and sixty two",
+            850: "eight hundred and fifty",
+            877: "eight hundred and seventy seven",
+            780: "seven hundred and eighty",
+            890: "eight hundred and ninety",
+            999: "nine hundred and ninety nine"
+        };
+
+        function assertConversion(num) {
+            it("should convert " + num + " to " + expected[num], function () {
+                expect(wordConversion.convert(num)).toEqual(expected[num]);
+            });
+        }
+
+        for (var num in expected) {
+            if (expected.hasOwnProperty(num)) {
+                assertConversion(num);
+            }
+        }
+    });
 });
