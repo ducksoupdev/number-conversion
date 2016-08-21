@@ -38,11 +38,45 @@ describe("Word conversion", function () {
             20: "twenty"
         };
 
+        function assertConversion(num) {
+            it("should convert " + num + " to " + expected[num], function () {
+                expect(wordConversion.convert(num)).toEqual(expected[num]);
+            });
+        }
+
         for (var num in expected) {
             if (expected.hasOwnProperty(num)) {
-                it("should convert " + num + " to " + expected[num], function () {
-                    expect(wordConversion.convert(num)).toEqual(expected[num]);
-                });
+                assertConversion(num);
+            }
+        }
+    });
+
+    describe("converting tens", function () {
+        var expected = {
+            21: "twenty one",
+            25: "twenty five",
+            29: "twenty nine",
+            30: "thirty",
+            33: "thirty three",
+            38: "thirty eight",
+            44: "fourty four",
+            47: "fourty seven",
+            62: "sixty two",
+            77: "seventy seven",
+            80: "eighty",
+            90: "ninety",
+            99: "ninety nine"
+        };
+
+        function assertConversion(num) {
+            it("should convert " + num + " to " + expected[num], function () {
+                expect(wordConversion.convert(num)).toEqual(expected[num]);
+            });
+        }
+
+        for (var num in expected) {
+            if (expected.hasOwnProperty(num)) {
+                assertConversion(num);
             }
         }
     });
